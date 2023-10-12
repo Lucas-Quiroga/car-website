@@ -7,6 +7,9 @@ import CustomFilter from "./CustomFilter";
 import SearchManufacturer from "./SearchManufacturer";
 import CarCard from "./CarCard";
 import CarDetails from "./CarDetails";
+import ShowMore from "./ShowMore";
+import Login from "./Login";
+import Register from "./Register";
 
 export {
   Hero,
@@ -18,4 +21,7 @@ export {
   SearchManufacturer,
   CarCard,
   CarDetails,
+  ShowMore,
+  Login,
+  Register,
 };

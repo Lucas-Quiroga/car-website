@@ -43,7 +43,7 @@
 }
 
 .hero__title {
-  @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
+  @apply 2xl:text-[64px] sm:text-[64px] text-[50px] font-extrabold;
 }
 
 .hero__subtitle {
@@ -217,3 +217,28 @@
   @apply cursor-default select-none py-2 pl-10 pr-4;
 }
 /* END: search manufacturer styles */
+
+/* HERO */
+
+.custom-shape-divider-bottom-1697144378 {
+    position: relative;
+    bottom: 17rem;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: -15rem;
+}
+
+.custom-shape-divider-bottom-1697144378 svg {
+    position: relative;
+    display: block;
+    width: calc(151% + 1.3px);
+    height: 300px;
+}
+
+.custom-shape-divider-bottom-1697144378 .shape-fill {
+    fill: #D63333;
+}

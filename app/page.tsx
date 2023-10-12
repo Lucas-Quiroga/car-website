@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Hero from "@/components/Hero";
-import { SearchBar, CustomFilter, CarCard } from "@/components";
+import { SearchBar, CustomFilter, CarCard, ShowMore } from "@/components";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
 
-export default async function Home({ searchParams }) {
+export default async function Home({ searchParams }: any) {
   const allCars = await fetchCars({
     manufacturer: searchParams.manufacturer || "",
     year: searchParams.year || 2022,
@@ -20,7 +20,7 @@ export default async function Home({ searchParams }) {
     <main className="overflow-hidden ">
       <Hero />
 
-      <div className="mt-12 padding-x padding-y max-widht" id="discover">
+      <div className="padding-x padding-y max-widht" id="discover">
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
           <p>Explore the cars you might like</p>
@@ -42,6 +42,11 @@ export default async function Home({ searchParams }) {
                 <CarCard car={car} />
               ))}
             </div>
+
+            <ShowMore
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) > allCars.length}
+            />
           </section>
         ) : (
           <div className="home__error-container">
