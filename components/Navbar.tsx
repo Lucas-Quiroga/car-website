@@ -8,7 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 const Navbar: React.FC = () => {
   const [active, setActive] = useState(false);
 
-  const { isLogin } = useAuth();
+  const { isLogin, user } = useAuth();
 
   const toggleModal = () => {
     setActive(!active);
@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
           />
         </Link> */}
 
-        <div></div>
+        <div>{user && <p className="text-black">Logged in as: {user}</p>}</div>
         <CustomButton
           title={isLogin ? "Sign In" : "Register"}
           btnType="button"
@@ -69,7 +69,7 @@ const Navbar: React.FC = () => {
                 </svg>
                 <span className="sr-only">Close modal</span>
               </button>
-              <div className="px-6 py-6 lg:px-8 mx-auto m-auto">
+              <div className="px-6 py-6 lg:px-8 mx-auto m-auto mt-[11rem]">
                 <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                   {isLogin
                     ? "Sign in to our platform"

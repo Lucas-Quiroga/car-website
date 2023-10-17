@@ -1,12 +1,26 @@
 "use client";
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useForm, FieldError } from "react-hook-form";
 
 const Register = () => {
   const { toggleForm } = useAuth();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm();
+
+  const onSubmit = handleSubmit((data) => {
+    localStorage.setItem("userData", JSON.stringify(data));
+    reset();
+  });
+
   return (
-    <form className="space-y-6" action="#">
+    <form className="space-y-6" action="#" onSubmit={onSubmit}>
       <div>
         <label
           htmlFor="email"
@@ -16,12 +30,25 @@ const Register = () => {
         </label>
         <input
           type="email"
-          name="email"
           id="email"
+          {...register("email", {
+            required: {
+              value: true,
+              message: "Email is required",
+            },
+            pattern: {
+              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+              message: "Email is not valid",
+            },
+          })}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           placeholder="name@company.com"
-          required
         />
+        {errors.email && (
+          <span className="block text-red-600 text-[15px] font-bold">
+            {(errors.email as FieldError).message}
+          </span>
+        )}
       </div>
       <div>
         <label
@@ -32,12 +59,25 @@ const Register = () => {
         </label>
         <input
           type="password"
-          name="password"
           id="password"
+          {...register("password", {
+            required: {
+              value: true,
+              message: "Password is required",
+            },
+            minLength: {
+              value: 6,
+              message: "The password must be at least 6 characters long",
+            },
+          })}
           placeholder="••••••••"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required
         />
+        {errors.password && (
+          <span className="block text-red-600 text-[15px] font-bold">
+            {(errors.password as FieldError).message}
+          </span>
+        )}
       </div>
       <div>
         <label
@@ -48,31 +88,23 @@ const Register = () => {
         </label>
         <input
           type="password"
-          name="password"
-          id="password"
+          id="confirmPassword"
+          {...register("confirmPassword", {
+            required: {
+              value: true,
+              message: "Confirm password is required",
+            },
+            validate: (value) =>
+              value === watch("password") || "passwords do not match",
+          })}
           placeholder="••••••••"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required
         />
-      </div>
-      <div className="flex justify-between">
-        <div className="flex items-start">
-          <div className="flex items-center h-5">
-            <input
-              id="remember"
-              type="checkbox"
-              value=""
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-              required
-            />
-          </div>
-          <label
-            htmlFor="remember"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Remember me
-          </label>
-        </div>
+        {errors.confirmPassword && (
+          <span className="block text-red-600 text-[15px] font-bold">
+            {(errors.confirmPassword as FieldError).message}
+          </span>
+        )}
       </div>
       <button
         type="submit"
