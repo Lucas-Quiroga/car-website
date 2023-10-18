@@ -1,17 +1,20 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useForm } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
 
 const Login = () => {
-  const { toggleForm, setUser } = useAuth();
-  const { handleSubmit, register, reset } = useForm();
+  const { toggleForm, setUser, toggleModal } = useAuth();
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const [showError, setShowError] = useState(false);
 
   const onSubmit = handleSubmit((data) => {
-    // event.preventDefault();
-
-    console.log(data);
-
     const email = data.email;
     const password = data.password;
 
@@ -22,14 +25,19 @@ const Login = () => {
       const storedEmail = userData.email;
       const storedPassword = userData.password;
 
-      console.log("storedEmail:" + storedEmail);
-      console.log("email:" + email);
-
       if (email === storedEmail && password === storedPassword) {
+        userData.isActive = true;
+
+        // Convierte el objeto actualizado en una cadena nuevamente
+        const updatedUserData = JSON.stringify(userData);
+
+        // Guarda los datos actualizados en el localStorage
+        localStorage.setItem("userData", updatedUserData);
+
         setUser(email);
-        console.log("user succefully");
+        toggleModal();
       } else {
-        console.log("user error");
+        setShowError(true);
       }
     }
 
@@ -39,6 +47,11 @@ const Login = () => {
   return (
     <form className="space-y-6" action="#" onSubmit={onSubmit}>
       <div>
+        {showError && (
+          <span className="block text-red-600 text-[15px] font-bold">
+            User not found. Please check your email and password.
+          </span>
+        )}
         <label
           htmlFor="email"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -48,13 +61,24 @@ const Login = () => {
         <input
           type="email"
           {...register("email", {
-            required: true,
+            required: {
+              value: true,
+              message: "Email is required",
+            },
+            pattern: {
+              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+              message: "Email is not valid",
+            },
           })}
           id="email"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           placeholder="name@company.com"
-          required
         />
+        {errors.email && (
+          <span className="block text-red-600 text-[15px] font-bold">
+            {(errors.email as FieldError).message}
+          </span>
+        )}
       </div>
       <div>
         <label
@@ -66,14 +90,24 @@ const Login = () => {
         <input
           type="password"
           {...register("password", {
-            required: true,
-            minLength: 6,
+            required: {
+              value: true,
+              message: "Password is required",
+            },
+            minLength: {
+              value: 6,
+              message: "The password must be at least 6 characters long",
+            },
           })}
           id="password"
           placeholder="••••••••"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-          required
         />
+        {errors.password && (
+          <span className="block text-red-600 text-[15px] font-bold">
+            {(errors.password as FieldError).message}
+          </span>
+        )}
       </div>
 
       <button

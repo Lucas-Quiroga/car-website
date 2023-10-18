@@ -4,7 +4,15 @@ import Image from "next/image";
 import { CustomButton } from ".";
 
 const Hero = () => {
-  const handleScroll = () => {};
+  const handleScroll = () => {
+    // Encuentra el elemento al que deseas desplazarte (en este caso, el H1 "Car Catalogue")
+    const elementToScrollTo = document.getElementById("discover");
+
+    if (elementToScrollTo) {
+      // Realiza el desplazamiento suave hacia el elemento
+      elementToScrollTo.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -21,6 +29,7 @@ const Hero = () => {
 
           <CustomButton
             title="Explore Cars"
+            btnType="button"
             containerStyles="bg-red-500 text-white rounded-full mt-10"
             handleClick={handleScroll}
           />

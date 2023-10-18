@@ -1,41 +1,58 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CustomButton, Login, Register } from ".";
 import { useAuth } from "@/context/AuthContext";
+import { FaUser } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
-  const [active, setActive] = useState(false);
+  const { isLogin, user, toggleModal, active, setUser, logout } = useAuth();
 
-  const { isLogin, user } = useAuth();
+  const [sessionActive, setSessionActive] = useState(false);
 
-  const toggleModal = () => {
-    setActive(!active);
-  };
+  const storedUser = localStorage.getItem("userData");
+  useEffect(() => {
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      setSessionActive(userData.isActive);
+      setUser(userData.email);
+    }
+  }, [setUser, storedUser]);
 
   return (
     <header className="w-full absolute z-10">
       <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4">
-        {/* <Link href="/" className="flex justify-center items-center">
-          <Image
-            src="/logo.svg"
-            alt="Car Hub Logo"
-            width={118}
-            height={18}
-            className="object-contain"
-          />
-        </Link> */}
+        <div>
+          {sessionActive && user && (
+            <div className="flex justify-center items-center gap-3">
+              {" "}
+              <p className=" text-[20px] text-black-100 font-light ">
+                Welcome - {user}
+              </p>
+              <FaUser />
+            </div>
+          )}
+        </div>
 
-        <div>{user && <p className="text-black">Logged in as: {user}</p>}</div>
-        <CustomButton
-          title={isLogin ? "Sign In" : "Register"}
-          btnType="button"
-          containerStyles="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-          handleClick={toggleModal}
-        />
+        {sessionActive && user ? (
+          <CustomButton
+            title="Log Out"
+            btnType="button"
+            containerStyles="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            handleClick={logout}
+          />
+        ) : (
+          <CustomButton
+            title="Sign In"
+            btnType="button"
+            containerStyles="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            handleClick={toggleModal}
+          />
+        )}
       </nav>
 
+      {/* MODAL */}
       {active && (
         <div
           id="authentication-modal"

@@ -15,7 +15,12 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = handleSubmit((data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
+    const userData = {
+      email: data.email,
+      password: data.password,
+      isActive: false,
+    };
+    localStorage.setItem("userData", JSON.stringify(userData));
     reset();
   });
 
