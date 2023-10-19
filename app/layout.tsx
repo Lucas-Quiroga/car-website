@@ -4,7 +4,7 @@ import { Navbar, Footer } from "@/components";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Car Hub",
+  title: "Car website",
   description: "Discover the best cars in the world.",
 };
 
