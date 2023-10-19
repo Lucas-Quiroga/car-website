@@ -11,14 +11,17 @@ const Navbar: React.FC = () => {
 
   const [sessionActive, setSessionActive] = useState(false);
 
-  const storedUser = localStorage.getItem("userData");
   useEffect(() => {
+    const storedUser = localStorage.getItem("userData");
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       setSessionActive(userData.isActive);
       setUser(userData.email);
+    } else {
+      setSessionActive(false);
+      setUser(null);
     }
-  }, [setUser, storedUser]);
+  }, [setUser, active]);
 
   return (
     <header className="w-full absolute z-10">

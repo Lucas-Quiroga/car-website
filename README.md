@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CAR WEBSITE
 
-## Getting Started
+A website that displays a registration and access system using local storage, and displays vehicle information through the Cars by API-Ninjas API, conceived exclusively for the purpose of being a demonstration.
 
-First, run the development server:
+## Preview image 👁
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![app](./public/app.jpg)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment 📦
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [DEMO](https://nike-website-gamma.vercel.app/) - Website
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+- Tailwind (CSS framework)
+- React
+- Next.js 13
+- TypeScript
 
-To learn more about Next.js, take a look at the following resources:
+## API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The system leverages API Ninjas' Cars API to retrieve comprehensive information on tens of thousands of vehicle models spanning multiple car manufacturers. For additional details, please visit https://api-ninjas.com/api/cars.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+API Ninjas' Cars API empowers users to access in-depth statistics on an extensive selection of car models produced by various automakers. Accommodates a diverse array of search criteria and encompasses over a dozen technical specifications for each vehicle. Furthermore, it undergoes continuous updates to ensure you have access to the latest data.
 
-## Deploy on Vercel
+- RapidAPI Cars API: [Documentation](https://rapidapi.com/apininjas/api/cars-by-api-ninjas?utm_source=youtube.com%2FJavaScriptMastery&utm_medium=referral&utm_campaign=DevRel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Authors ✒️
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Lucas Quiroga** - _Initial work_ - [Lucas Quiroga](https://github.com/Lucas-Quiroga)
+
+## License 📄
+
+This project is licensed © LUCAS QUIROGA 2023, all rights reserved.

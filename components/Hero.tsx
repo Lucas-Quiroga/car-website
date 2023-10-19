@@ -9,7 +9,6 @@ const Hero = () => {
     const elementToScrollTo = document.getElementById("discover");
 
     if (elementToScrollTo) {
-      // Realiza el desplazamiento suave hacia el elemento
       elementToScrollTo.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -27,24 +26,25 @@ const Hero = () => {
             process
           </p>
 
-          <CustomButton
-            title="Explore Cars"
-            btnType="button"
-            containerStyles="bg-red-500 text-white rounded-full mt-10"
-            handleClick={handleScroll}
-          />
+          <div className="hidden sm:block">
+            <CustomButton
+              title="Explore Cars"
+              btnType="button"
+              containerStyles="bg-red-500 text-white rounded-full mt-10"
+              handleClick={handleScroll}
+            />
+          </div>
         </div>
         <div className="hero__image-container">
-          <div className="hero__image">
+          <div className="hero__image hidden sm:block">
             <Image
               src={"/hero3.png"}
               alt="hero"
               fill
               className="object-contain"
+              priority={true}
             />
           </div>
-
-          {/* <div className="hero__image-overlay"></div> */}
         </div>
       </div>
       <div className="custom-shape-divider-bottom-1697144378 hidden xl:block ">

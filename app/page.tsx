@@ -22,7 +22,9 @@ export default async function Home({ searchParams }: any) {
 
       <div className="padding-x padding-y max-widht" id="discover">
         <div className="home__text-container">
-          <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
+          <h1 className="text-4xl font-extrabold hidden sm:block">
+            Car Catalogue
+          </h1>
           <p>Explore the cars you might like</p>
         </div>
 
@@ -38,8 +40,8 @@ export default async function Home({ searchParams }: any) {
         {!isDataEmpty ? (
           <section>
             <div className="home__cars-wrapper">
-              {allCars?.map((car) => (
-                <CarCard car={car} />
+              {allCars?.map((car, index) => (
+                <CarCard car={car} key={index} />
               ))}
             </div>
 
